@@ -1,16 +1,28 @@
-import { getNotes, getNoteByIndex, deleteNote, createNote, updateNote } from './helpers.js'
+import { getNotes, getNoteById, deleteNote, createNote, updateNote } from './helpers.js'
 import express from 'express';
 import cors from 'cors';
+import pg from 'pg'
 
 const app = express()
 const port = 3000
 
+const dbAccessVariables = {
+    user: 'kriskewish',
+    host: 'localhost',
+    database: 'kriskewish',
+    password: '',
+    port: 5432,
+};
+
+const { Pool } = pg;
+const pool = new Pool(dbAccessVariables); // Initialise connection to the SQL DB
+
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     try {
-        const notes = getNotes();
+        const notes = await getNotes(pool);
         res.send(notes);
     } catch(e) {
         console.log(e);
@@ -18,10 +30,10 @@ app.get('/', (req, res) => {
     }
 })
 
-app.get('/:index', (req, res) => {
+app.get('/:id', async (req, res) => {
     try {
-        const index = Number(req.params.index);
-        const note = getNoteByIndex(index);
+        const id = req.params.id;
+        const note = await getNoteById(pool, id);
         res.send(note);
     } catch(e) {
         console.log(e);
@@ -29,10 +41,10 @@ app.get('/:index', (req, res) => {
     }
 })
 
-app.delete('/:index', (req, res) => {
+app.delete('/:id', async (req, res) => {
     try {
-        const index = Number(req.params.index);
-        deleteNote(index);
+        const id = req.params.id;
+        await deleteNote(pool, id);
         res.status(204).send('Note deleted!');
     } catch(e) {
         console.log(e);
@@ -40,10 +52,10 @@ app.delete('/:index', (req, res) => {
     }
 })
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
     try {
         const note = req.body;
-        createNote(note);
+        await createNote(pool, note);
         res.status(201).send('Note created!');
     } catch(e) {
         console.log(e);
@@ -51,11 +63,11 @@ app.post('/', (req, res) => {
     }
 })
 
-app.put('/:index', (req, res) => {
+app.put('/:id', async (req, res) => {
     try {
         const note = req.body;
-        const index = Number(req.params.index);
-        updateNote(index, note);
+        const id = req.params.id;
+        await updateNote(pool, id, note);
         res.status(200).send('Note updated.');
     } catch(e) {
         console.log(e);
@@ -66,3 +78,8 @@ app.put('/:index', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
+process.on('SIGINT', () => {
+    pool.end()
+        .then(() => process.exit())
+}); // shut the connection pool when the server is shut down

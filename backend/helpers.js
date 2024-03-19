@@ -8,10 +8,10 @@ async function getNotes(pool) {
 };
 
 async function getNoteById(pool, id) {
-    const res = await pool.query('SELECT title, content FROM notes WHERE id = $1',[id]);
+    const res = await pool.query('SELECT id, title, content FROM notes WHERE id = $1',[id]);
     const { rows } = res;
 
-    return rows
+    return rows[0]
 }
 
 async function deleteNote(pool, id) {
