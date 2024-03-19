@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    background-color: var(--yellow);
+    height: 70px;
+    width: 100vw;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    max-width: 750px;
+    flex-grow: 1;
+}
+
+.create {
+    height: 70px;
+    width: 70px;
+    margin-right: 20px;
+    background-color: var(--bg-white);
+    
+}
+

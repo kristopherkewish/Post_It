@@ -1,0 +1,13 @@
+:root {
+  --yellow: #F9DC5C;
+  --bg-white: #FDF8E1;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-white);
+}
