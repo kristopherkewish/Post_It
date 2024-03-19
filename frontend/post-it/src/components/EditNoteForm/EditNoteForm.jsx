@@ -1,13 +1,13 @@
 import styles from './EditNoteForm.module.css';
 import { useState } from 'react';
 
-export default function EditNoteForm({ index, initialTitle, initialContent, onUpdateClick }) {
+export default function EditNoteForm({ id, initialTitle, initialContent, onUpdateClick }) {
     const [title, setTitle] = useState(initialTitle);
     const [content, setContent] = useState(initialContent);
 
     const handleSubmit = event => {
         event.preventDefault();
-        onUpdateClick(index, {title, content});
+        onUpdateClick(id, {title, content});
     }
 
     return (

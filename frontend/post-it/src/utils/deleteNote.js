@@ -1,6 +1,6 @@
-async function deleteNote(noteIndex) {
+async function deleteNote(noteId) {
     try {
-        const response = await fetch(`http://localhost:3000/${noteIndex}`, {
+        const response = await fetch(`http://localhost:3000/${noteId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'

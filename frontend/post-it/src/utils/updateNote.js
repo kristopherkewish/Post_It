@@ -1,6 +1,6 @@
-async function updateNote(index, note) {
+async function updateNote(id, note) {
     try {
-        const response = await fetch(`http://localhost:3000/${index}`, {
+        const response = await fetch(`http://localhost:3000/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

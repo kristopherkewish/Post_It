@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const loadingNote = [{
+    id: 'loading',
     title: "Loading...",
     description: "Please wait while data is fetched from the server."
   }];
@@ -29,18 +30,18 @@ function App() {
       .catch(err => console.log('Error creating note!', err));
   };
 
-  const handleNoteDelete = (noteIndex) => {
-    deleteNote(noteIndex)
+  const handleNoteDelete = (noteId) => {
+    deleteNote(noteId)
       .then(() => {
         fetchNotes().then(data => setNotes(data));
       })
       .catch(err => console.log('Error deleting note!', err));
   };
   
-  const handleEditClick = (noteIndex) => setEditMode(noteIndex);
+  const handleEditClick = (noteId) => setEditMode(noteId);
 
-  const handleNoteUpdate = (index, newNote) => {
-    updateNote(index, newNote)
+  const handleNoteUpdate = (id, newNote) => {
+    updateNote(id, newNote)
       .then(() => {
         setEditMode(null);
         fetchNotes().then(data => setNotes(data));

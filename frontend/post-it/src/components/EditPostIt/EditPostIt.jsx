@@ -1,11 +1,11 @@
 import styles from './EditPostIt.module.css';
 import EditNoteForm from '../EditNoteForm/EditNoteForm.jsx';
 
-export default function EditPostIt({ index, title, content, onUpdateClick }) {
+export default function EditPostIt({ id, title, content, onUpdateClick }) {
     return (
         <div className={styles.postIt}>
             <EditNoteForm 
-                index={index}
+                id={id}
                 initialTitle={title}
                 initialContent={content}
                 onUpdateClick={onUpdateClick}

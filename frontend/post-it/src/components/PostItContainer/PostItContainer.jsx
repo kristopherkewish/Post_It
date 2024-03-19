@@ -5,21 +5,21 @@ import EditPostIt from '../EditPostIt/EditPostIt.jsx';
 export default function PostItContainer({ notes, editMode, onNoteDelete, onEditClick, onUpdateClick }) {
     return (
         <div className={styles.container}>
-            {notes.map((note, index) => {
-                if (index !== editMode) {
+            {notes.map((note) => {
+                if (note.id !== editMode) {
                     return (
                         <PostIt
-                            key={index}
+                            key={note.id}
                             title={note.title}
                             content={note.content}
-                            onNoteDelete={() => onNoteDelete(index)}
-                            onEditClick={() => onEditClick(index)}
+                            onNoteDelete={() => onNoteDelete(note.id)}
+                            onEditClick={() => onEditClick(note.id)}
                         />
                     )
                 } else {
                     return (
                         <EditPostIt 
-                            index={index}
+                            id={note.id}
                             title={note.title}
                             content={note.content}
                             onUpdateClick={onUpdateClick}

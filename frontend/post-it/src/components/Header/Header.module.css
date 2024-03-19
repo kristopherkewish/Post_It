@@ -7,4 +7,6 @@ header {
     top: 0px;
     display: flex;
     justify-content: center;
+    z-index: 999;
+    border-bottom: 1px solid black;
 }

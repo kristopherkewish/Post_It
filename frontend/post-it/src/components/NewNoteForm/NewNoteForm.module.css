@@ -7,6 +7,7 @@
     background-color: var(--yellow);
     height: 70px;
     width: 100vw;
+    border-top: 1px solid black;
 }
 
 form {
