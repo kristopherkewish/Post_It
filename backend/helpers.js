@@ -1,69 +1,41 @@
-import fs from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 
-const dbPath = './notes.json';
+async function getNotes(pool) {
+    const res = await pool.query('SELECT id, title, content FROM notes');
+    const { rows } = res;
 
-function getNotes() {
-    const db = fs.readFileSync(dbPath);
-    const notes = JSON.parse(db);
-
-    return notes
+    return rows
 };
 
-function getNoteByIndex(index) {
-    if(typeof index == 'number' && index >= 0) {
-        const notes = getNotes();
+async function getNoteById(pool, id) {
+    const res = await pool.query('SELECT title, content FROM notes WHERE id = $1',[id]);
+    const { rows } = res;
 
-        if (index < notes.length) {
-            return notes[index];
-        }
-
-        throw new Error('Index must be less than the number of notes.')
-    }
-    
-    throw new Error('Index must be a positive integer.');
+    return rows
 }
 
-function getNoteByTitle(title) {
-    const notes = getNotes();
-
-    const foundNote = notes.filter(note => note.title === title);
-
-    if(foundNote.length > 0) {
-        return foundNote
-    }
-
-    throw new Error('No note with matching title.');
+async function deleteNote(pool, id) {
+    await pool.query('DELETE FROM notes WHERE id = $1', [id]);
 }
 
-function deleteNote(index) {
-    if(typeof index == 'number' && index >= 0) {
-        const notes = getNotes();
+async function createNote(pool, note) {
+    const id = uuidv4();
+    const { title, content } = note;
 
-        if(index < notes.length) {
-            notes.splice(index, 1);
-            fs.writeFileSync(dbPath, JSON.stringify(notes));
-
-            return;
-        }
-
-        throw new Error('Index must be less than the number of notes.')
-    }
-
-    throw new Error('Index must be a positive integer.');
+    await pool.query(`
+        INSERT INTO notes (id, user_id, title, content)
+        VALUES ($1, 0, $2, $3)
+    `,[id, title, content]);
 }
 
-function createNote(note) {
-    const notes = getNotes();
-    notes.push(note);
-    fs.writeFileSync(dbPath, JSON.stringify(notes));
-    return note;
+async function updateNote(pool, id, note) {
+    const { title, content } = note;
+
+    await pool.query(`
+        UPDATE notes
+        SET title = $1, content = $2
+        WHERE id = $3;
+    `, [title, content, id]);
 }
 
-function updateNote(index, note) {
-    const notes = getNotes();
-    notes[index] = note;
-    fs.writeFileSync(dbPath, JSON.stringify(notes));
-    return notes[index];
-}
-
-export { getNotes, getNoteByIndex, getNoteByTitle, deleteNote, createNote, updateNote }
+export { getNotes, getNoteById, deleteNote, createNote, updateNote }
