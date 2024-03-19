@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 async function getNotes(pool) {
-    const res = await pool.query('SELECT id, title, content FROM notes');
+    const res = await pool.query('SELECT id, title, content FROM notes ORDER BY created_at ASC');
     const { rows } = res;
 
     return rows
