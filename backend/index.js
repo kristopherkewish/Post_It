@@ -6,15 +6,8 @@ import pg from 'pg'
 const app = express()
 const port = 3000
 
-const connectionString = 'postgres://kriskewish:kJR3EpZaIJ9XN18xK567gU0JOdkFKSTw@dpg-cnuggoed3nmc73aab4hg-a.oregon-postgres.render.com/postitdb'
-
 const { Pool } = pg;
-const pool = new Pool({
-    connectionString,
-    ssl: {
-        rejectUnauthorized: false, // Set to false if you're using self-signed certificates
-    }
-}); // Initialise connection to the SQL DB
+const pool = new Pool(); // Initialise connection to the SQL DB
 
 app.use(cors());
 app.use(express.json());
