@@ -1,6 +1,6 @@
 async function deleteNote(noteId) {
     try {
-        const response = await fetch(`http://localhost:3000/${noteId}`, {
+        const response = await fetch(`https://post-it-sqgp.onrender.com/${noteId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'

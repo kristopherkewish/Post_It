@@ -1,6 +1,6 @@
 async function createNote(note) {
     try {
-        const response = await fetch('http://localhost:3000', {
+        const response = await fetch('https://post-it-sqgp.onrender.com', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

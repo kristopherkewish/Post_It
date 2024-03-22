@@ -1,6 +1,6 @@
 async function updateNote(id, note) {
     try {
-        const response = await fetch(`http://localhost:3000/${id}`, {
+        const response = await fetch(`https://post-it-sqgp.onrender.com/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

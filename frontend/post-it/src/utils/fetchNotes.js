@@ -1,6 +1,6 @@
 async function fetchNotes() {
     try {
-        const response = await fetch('http://localhost:3000');
+        const response = await fetch('https://post-it-sqgp.onrender.com');
         const notes = await response.json();
 
         if (!response.ok) {
