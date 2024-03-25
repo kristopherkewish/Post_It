@@ -1,6 +1,6 @@
 async function createNote(note) {
     try {
-        const response = await fetch('https://post-it-sqgp.onrender.com', {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

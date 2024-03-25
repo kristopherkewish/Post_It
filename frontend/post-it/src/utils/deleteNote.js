@@ -1,6 +1,6 @@
 async function deleteNote(noteId) {
     try {
-        const response = await fetch(`https://post-it-sqgp.onrender.com/${noteId}`, {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/${noteId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
