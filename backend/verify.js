@@ -1,6 +1,8 @@
 import { pool } from './index.js';
 
 export async function verify(issuer, profile, cb) {
+    console.log('in the verify function')
+
     try {
         const credentials = await findCredentials(issuer, profile.id);
         if (!credentials) {
@@ -11,13 +13,22 @@ export async function verify(issuer, profile, cb) {
                 name: profile.displayName
             }
 
+            console.log('credentials and user had to be added');
+            console.log('user object being returned: ');
+            console.log(user);
+
             return cb(null, user);
         }
 
         const user = await findUser(credentials.user_id);
         if (!user) {
+            console.log('credentials were found, but user could not be found');
             return cb(null, false);
         }
+        
+        console.log('credentials and user were found');
+        console.log('the user object being sent is: ');
+        console.log(user);
         
         return cb(null, user);
     } catch(err) {

@@ -6,22 +6,39 @@ import pg from 'pg';
 import authRouter from './auth.js';
 import session from 'express-session';
 import passport from 'passport';
+import connectPgSimple from 'connect-pg-simple';
+import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
 
 const app = express()
 const port = 3000
 
 const { Pool } = pg;
 const pool = new Pool(); // Initialise connection to the SQL DB
+const PgSession = connectPgSimple(session);
 
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+  }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(morgan('combined'));
 
 app.use(session({
+    store: new PgSession({
+        pool: pool,
+        tableName: 'user_sessions',
+        createTableIfMissing: true
+    }),
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
 })); //  Configure authenticated session
-app.use(passport.authenticate('session')); // Authenticate session with each request
+
+app.use(passport.initialize());
+app.use(passport.session()); // Authenticate session with each request
 
 app.use('/', authRouter); // Login routes
 

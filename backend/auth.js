@@ -2,6 +2,17 @@ import express from 'express';
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oidc';
 import { verify } from './verify.js';
+import { pool } from './index.js';
+
+passport.serializeUser(function(user,done) {
+    console.log('serialize');
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    console.log('deserialize');
+    done(null, user);
+});
 
 passport.use(new GoogleStrategy({
     clientID: process.env['GOOGLE_CLIENT_ID'],
@@ -14,10 +25,10 @@ const router = express.Router();
 
 router.get('/login/federated/google', passport.authenticate('google'));
 
-router.get('/oauth2/redirect/google', passport.authenticate('google', {
-    successRedirect: process.env.CLIENT_URL + '/',
-    failureRedirect: process.env.CLIENT_URL + '/login'
-}));
+router.get('/oauth2/redirect/google', passport.authenticate('google', {session: true},),
+(req, res) => {
+    res.redirect(process.env.CLIENT_URL + '/');
+});
 
 router.post('/logout', function(req, res, next) {
     req.logout(function(err) {
@@ -25,17 +36,5 @@ router.post('/logout', function(req, res, next) {
         res.redirect('/');
     })
 })
-
-passport.serializeUser(function(user,cb) {
-    process.nextTick(function() {
-        cb(null, {id: user.id, username: user.username, name: user.name });
-    })
-});
-
-passport.deserializeUser(function(user, cb) {
-    process.nextTick(function() {
-      return cb(null, user);
-    });
-});
 
 export default router;

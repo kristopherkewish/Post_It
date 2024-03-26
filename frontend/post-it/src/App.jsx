@@ -6,7 +6,9 @@ import { fetchNotes } from './utils/fetchNotes.js';
 import { createNote } from './utils/createNote.js';
 import { deleteNote } from './utils/deleteNote.js';
 import { updateNote } from './utils/updateNote.js';
+import { isLoggedIn } from './utils/isLoggedIn.js';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const loadingNote = [{
@@ -15,10 +17,12 @@ function App() {
     description: "Please wait while data is fetched from the server."
   }];
 
+  // const navigate = useNavigate();
   const [notes, setNotes] = useState(loadingNote);
   const [editMode, setEditMode] = useState(null);
 
   useEffect(() => {
+    // isLoggedIn().then(loggedIn => !loggedIn && navigate('/login'));
     fetchNotes().then(data => setNotes(data));
   },[])
 
