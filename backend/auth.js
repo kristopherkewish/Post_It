@@ -15,8 +15,8 @@ const router = express.Router();
 router.get('/login/federated/google', passport.authenticate('google'));
 
 router.get('/oauth2/redirect/google', passport.authenticate('google', {
-    successRedirect: '/',
-    failureRedirect: '/'
+    successRedirect: process.env.CLIENT_URL + '/',
+    failureRedirect: process.env.CLIENT_URL + '/login'
 }));
 
 router.post('/logout', function(req, res, next) {

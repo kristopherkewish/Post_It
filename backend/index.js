@@ -27,7 +27,8 @@ app.use('/', authRouter); // Login routes
 
 app.get('/', async (req, res) => {
     try {
-        const notes = await getNotes(pool);
+        const { user } = req;
+        const notes = await getNotes(pool, user);
         res.send(notes);
     } catch(e) {
         console.log(e);
@@ -59,8 +60,9 @@ app.delete('/:id', async (req, res) => {
 
 app.post('/', async (req, res) => {
     try {
+        const { user } = req;
         const note = req.body;
-        await createNote(pool, note);
+        await createNote(pool, note, user);
         res.status(201).send('Note created!');
     } catch(e) {
         console.log(e);
