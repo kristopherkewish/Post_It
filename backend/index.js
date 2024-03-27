@@ -19,7 +19,7 @@ const PgSession = connectPgSimple(session);
 
 app.use(cors({
     credentials: true,
-    origin: ['localhost', 'https://post-it-frontend.onrender.com', 'https://post-it-sqgp.onrender.com'],
+    origin: true,
 }));
 
 app.use(express.json());
