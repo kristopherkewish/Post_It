@@ -47,6 +47,9 @@ app.use(passport.session()); // Authenticate session with each request
 app.use('/', authRouter); // Login routes
 
 app.get('/', async (req, res) => {
+    console.log('fetching notes');
+    console.log('user object');
+    console.log(req.user);
     try {
         const { user } = req;
         const notes = await getNotes(pool, user);
