@@ -19,8 +19,9 @@ const PgSession = connectPgSimple(session);
 
 app.use(cors({
     credentials: true,
-    origin: process.env.CLIENT_URL,
-  }));
+    origin: true,
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -34,10 +35,9 @@ app.use(session({
     }),
     secret: 'keyboard cat',
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: { 
-        secure: process.env.COOKIE_SECURE === "false" ? false : true, 
-        httpOnly: false
+        secure: process.env.COOKIE_SECURE === "false" ? false : true,     
     }
 })); //  Configure authenticated session
 
