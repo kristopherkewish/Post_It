@@ -19,7 +19,7 @@ const PgSession = connectPgSimple(session);
 
 app.use(cors({
     credentials: true,
-    origin: true,
+    origin: [process.env.CLIENT_URL],
 }));
 
 app.use(express.json());
