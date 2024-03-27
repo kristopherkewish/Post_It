@@ -17,13 +17,19 @@ function App() {
     description: "Please wait while data is fetched from the server."
   }];
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [notes, setNotes] = useState(loadingNote);
   const [editMode, setEditMode] = useState(null);
 
   useEffect(() => {
-    // isLoggedIn().then(loggedIn => !loggedIn && navigate('/login'));
-    fetchNotes().then(data => setNotes(data));
+    isLoggedIn()
+      .then(loggedIn => {
+        if(!loggedIn) {
+          navigate('/login')
+        } else {
+          fetchNotes().then(data => setNotes(data));
+        }
+      });
   },[])
 
   const handleNewNoteSubmit = (newNote) => {

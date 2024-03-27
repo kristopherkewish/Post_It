@@ -5,12 +5,10 @@ import { verify } from './verify.js';
 import { pool } from './index.js';
 
 passport.serializeUser(function(user,done) {
-    console.log('serialize');
     done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
-    console.log('deserialize');
     done(null, user);
 });
 
@@ -29,6 +27,14 @@ router.get('/oauth2/redirect/google', passport.authenticate('google', {session: 
 (req, res) => {
     res.redirect(process.env.CLIENT_URL + '/');
 });
+
+router.get('/isLoggedIn', (req, res) => {
+    if(req.user) {
+        res.send('Logged In!');
+    } else {
+        res.status(401).send();
+    }
+})
 
 router.post('/logout', function(req, res, next) {
     req.logout(function(err) {
