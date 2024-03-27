@@ -19,7 +19,7 @@ const PgSession = connectPgSimple(session);
 
 app.use(cors({
     credentials: true,
-    origin: true,
+    origin: ['localhost', 'https://post-it-frontend.onrender.com', 'https://post-it-sqgp.onrender.com'],
 }));
 
 app.use(express.json());
@@ -37,7 +37,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     cookie: { 
-        secure: process.env.COOKIE_SECURE === "false" ? false : true,     
+        secure: process.env.COOKIE_SECURE === "false" ? false : true,
+        sameSite: process.env.COOKIE_SAME_SITE
     }
 })); //  Configure authenticated session
 
@@ -117,3 +118,5 @@ process.on('SIGINT', () => {
 }); // shut the connection pool when the server is shut down
 
 export { pool }
+
+// connect.sid	s%3AkLbqWfBhKMcgE3GEbemQjW-UWaXEN1Rx.LeLErxXMjS9TjIHq1Ka6poSjxnSLr6UPTJLIA%2BC9p%2BU	localhost	/	Session	95	✓				Med
