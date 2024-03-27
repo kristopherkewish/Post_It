@@ -1,20 +1,51 @@
+import 'dotenv/config';
 import { getNotes, getNoteById, deleteNote, createNote, updateNote } from './helpers.js'
 import express from 'express';
 import cors from 'cors';
-import pg from 'pg'
+import pg from 'pg';
+import authRouter from './auth.js';
+import session from 'express-session';
+import passport from 'passport';
+import connectPgSimple from 'connect-pg-simple';
+import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
 
 const app = express()
 const port = 3000
 
 const { Pool } = pg;
 const pool = new Pool(); // Initialise connection to the SQL DB
+const PgSession = connectPgSimple(session);
 
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+  }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(morgan('dev'));
+
+app.use(session({
+    store: new PgSession({
+        pool: pool,
+        tableName: 'user_sessions',
+        createTableIfMissing: true
+    }),
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+})); //  Configure authenticated session
+
+app.use(passport.initialize());
+app.use(passport.session()); // Authenticate session with each request
+
+app.use('/', authRouter); // Login routes
 
 app.get('/', async (req, res) => {
     try {
-        const notes = await getNotes(pool);
+        const { user } = req;
+        const notes = await getNotes(pool, user);
         res.send(notes);
     } catch(e) {
         console.log(e);
@@ -25,8 +56,9 @@ app.get('/', async (req, res) => {
 app.get('/:id', async (req, res) => {
     try {
         const id = req.params.id;
+        if (id == "mockServiceWorker.js") { return };
         const note = await getNoteById(pool, id);
-        res.send(note);
+        res.send(note); 
     } catch(e) {
         console.log(e);
         res.status(400).send('Error reading the database!');
@@ -46,8 +78,9 @@ app.delete('/:id', async (req, res) => {
 
 app.post('/', async (req, res) => {
     try {
+        const { user } = req;
         const note = req.body;
-        await createNote(pool, note);
+        await createNote(pool, note, user);
         res.status(201).send('Note created!');
     } catch(e) {
         console.log(e);
@@ -75,3 +108,5 @@ process.on('SIGINT', () => {
     pool.end()
         .then(() => process.exit())
 }); // shut the connection pool when the server is shut down
+
+export { pool }

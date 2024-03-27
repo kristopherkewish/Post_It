@@ -1,0 +1,36 @@
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.loginBtn {
+    /* Resetting default button styles */
+    border: none;
+    border-radius: 10px;
+    background-color: #4285F4;
+    padding: 30px;
+    margin: 0;
+    font: inherit;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    outline: none; /* Remove the outline when button is focused */
+    box-shadow: -5px 5px 0px 0px rgba(0,0,0,1);
+}
+
+.loginBtn:hover {
+    background-color: white;
+    color: #4285F4;
+}
+
+.loginBtn:active {
+    position: relative;
+    box-shadow: none;
+    top: 5px;
+    right: 5px;
+}

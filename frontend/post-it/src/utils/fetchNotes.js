@@ -1,6 +1,8 @@
 async function fetchNotes() {
     try {
-        const response = await fetch('https://post-it-sqgp.onrender.com');
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/', {
+            credentials: "include"
+        });
         const notes = await response.json();
 
         if (!response.ok) {
