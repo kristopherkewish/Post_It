@@ -1,3 +1,3 @@
 export function login() {
-    document.location = "http://localhost:3000/login/federated/google";
+    document.location = import.meta.env.VITE_BACKEND_URL + "/login/federated/google";
 }
