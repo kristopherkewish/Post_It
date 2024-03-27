@@ -33,9 +33,12 @@ app.use(session({
         createTableIfMissing: true
     }),
     secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: process.env.COOKIE_SECURE === "false" ? false : true }
+    resave: true,
+    saveUninitialized: false,
+    cookie: { 
+        secure: process.env.COOKIE_SECURE === "false" ? false : true, 
+        httpOnly: false
+    }
 })); //  Configure authenticated session
 
 app.use(passport.initialize());
