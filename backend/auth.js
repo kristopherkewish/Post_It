@@ -23,7 +23,10 @@ const router = express.Router();
 
 router.get('/login/federated/google', passport.authenticate('google'));
 
-router.get('/oauth2/redirect/google', passport.authenticate('google', {session: true},),
+router.get('/oauth2/redirect/google', passport.authenticate('google', {
+    failureMessage: true,
+    session: true
+},),
 (req, res) => {
     res.redirect(process.env.CLIENT_URL + '/');
 });
