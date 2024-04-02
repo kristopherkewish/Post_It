@@ -1,0 +1,73 @@
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.loginForm {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    width: 100px;
+    height: auto;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-left: 0;
+}
+
+.label {
+    margin-bottom: 10px;
+}
+
+.username {
+    margin-bottom: 30px;
+}
+
+.btnContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginBtn {
+    /* Resetting default button styles */
+    border: none;
+    border-radius: 10px;
+    background-color: #4285F4;
+    padding: 30px;
+    margin: 15px 30px;
+    font: inherit;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    outline: none; /* Remove the outline when button is focused */
+    box-shadow: -5px 5px 0px 0px rgba(0,0,0,1);
+    width: 200px;
+}
+
+.loginBtn:hover {
+    background-color: white;
+    color: #4285F4;
+}
+
+.loginBtn:active {
+    position: relative;
+    box-shadow: none;
+    top: 5px;
+    right: 5px;
+}
+
+.signUpBtn {
+    background-color: var(--yellow);
+}
+
+.signUpBtn:hover {
+    background-color: white;
+    color: var(--yellow);
+}
