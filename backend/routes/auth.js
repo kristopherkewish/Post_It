@@ -60,6 +60,17 @@ passport.deserializeUser(function (user, cb) {
 
 const router = express.Router();
 
+router.get('/isLoggedIn', (req, res) => {
+    console.log('Checking if user is logged in');
+    if(!req.user) {
+        console.log('User is not logged in');
+        res.status(401).send('Not logged in');
+    } else {
+        console.log('User is logged in');
+        res.send('Logged in');
+    }
+});
+
 router.post('/login', (req, res, next) => { 
     console.log('Login request received');
     next();
