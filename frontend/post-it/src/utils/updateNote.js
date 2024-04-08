@@ -2,6 +2,7 @@ async function updateNote(id, note) {
     try {
         const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/${id}`, {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },

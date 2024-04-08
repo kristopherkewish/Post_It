@@ -4,9 +4,14 @@ import { getNotes, getNoteById, deleteNote, createNote, updateNote } from '../he
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res, next) => {
+    console.log('Attempting to get notes');
+    req.cookies ? console.log('Cookies found on request: ', req.cookies) : console.log('Uh oh, cookies are not being sent from the client');
+    next();
+}, async (req, res) => {
     try {
-        const notes = await getNotes(pool);
+        const { id } = req.user;
+        const notes = await getNotes(pool, id);
         res.send(notes);
     } catch(e) {
         console.log(e);
@@ -38,8 +43,9 @@ router.delete('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
+        const { id } = req.user
         const note = req.body;
-        await createNote(pool, note);
+        await createNote(pool, note, id);
         res.status(201).send('Note created!');
     } catch(e) {
         console.log(e);

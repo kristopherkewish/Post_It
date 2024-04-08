@@ -2,6 +2,7 @@ async function createNote(note) {
     try {
         const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },

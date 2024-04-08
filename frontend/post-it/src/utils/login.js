@@ -2,6 +2,7 @@ async function login(username, password) {
     try {
         const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/login', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
