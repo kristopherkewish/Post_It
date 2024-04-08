@@ -15,7 +15,7 @@ async function signUp(username, password) {
         }
 
         console.log('signup function response');
-        console.log(response.data);
+        console.log(data);
 
         return {success: true, message: data};
     } catch(e) {
