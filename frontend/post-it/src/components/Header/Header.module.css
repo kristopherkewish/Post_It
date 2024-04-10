@@ -10,3 +10,16 @@ header {
     z-index: 999;
     border-bottom: 1px solid black;
 }
+
+.signOut {
+    position: absolute;
+    right: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.signOut a {
+    text-decoration: none;
+    color: black;
+}
