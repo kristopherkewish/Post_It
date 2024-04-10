@@ -30,7 +30,10 @@ app.use(session({
         tableName: 'session',
         createTableIfMissing: true
     }),
-    //cookie: { httpOnly: false },
+    cookie: { 
+        sameSite: process.env.COOKIE_SAME_SITE,
+        secure: process.env.COOKIE_SECURE,
+     },
 }));
 app.use(passport.authenticate('session'));
 
