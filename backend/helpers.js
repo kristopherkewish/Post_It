@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 async function getNotes(pool, userId) {
-    console.log('Inside getNotes function');
-    console.log('The user id is: ', userId);
     const res = await pool.query('SELECT id, title, content FROM notes WHERE user_id = $1 ORDER BY created_at ASC', [userId]);
     const { rows } = res;
 

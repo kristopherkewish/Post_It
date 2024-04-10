@@ -4,11 +4,7 @@ import { getNotes, getNoteById, deleteNote, createNote, updateNote } from '../he
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    console.log('Attempting to get notes');
-    req.cookies ? console.log('Cookies found on request: ', req.cookies) : console.log('Uh oh, cookies are not being sent from the client');
-    next();
-}, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const { id } = req.user;
         const notes = await getNotes(pool, id);
