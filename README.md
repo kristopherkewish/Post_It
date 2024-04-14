@@ -4,6 +4,6 @@ A simple full stack PERN app that allows you to create sticky notes in the brows
 
 ## ACCESS
 
-The full app has been deployed on Render and can be accessed via: https://post-it-frontend.onrender.com/
+The full app has been deployed on Render and can be accessed via: https://post-it-zhld.onrender.com
 
 Note: not currently mobile responsive, however should work on medium screens upwards
