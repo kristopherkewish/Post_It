@@ -47,10 +47,6 @@ app.use('/api', indexRouter);
 
 app.use(express.static(path.join(__dirname, '../frontend/post-it/dist')));
 
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
