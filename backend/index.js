@@ -7,6 +7,11 @@ import session from 'express-session';
 import pgSession from 'connect-pg-simple';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express()
 const port = 3000
@@ -37,8 +42,14 @@ app.use(session({
 }));
 app.use(passport.authenticate('session'));
 
-app.use('/', authRouter);
-app.use('/', indexRouter);
+app.use('/auth', authRouter);
+app.use('/api', indexRouter);
+
+app.use(express.static(path.join(__dirname, '../frontend/post-it/dist')));
+
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

@@ -1,6 +1,6 @@
 async function fetchNotes() {
     try {
-        const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/', {
+        const response = await fetch('/api', {
             credentials: 'include'
         });
         const notes = await response.json();

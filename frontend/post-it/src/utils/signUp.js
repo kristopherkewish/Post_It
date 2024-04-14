@@ -1,6 +1,6 @@
 async function signUp(username, password) {
     try {
-        const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/signUp', {
+        const response = await fetch('/auth/signUp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

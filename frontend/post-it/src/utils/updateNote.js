@@ -1,6 +1,6 @@
 async function updateNote(id, note) {
     try {
-        const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/${id}`, {
+        const response = await fetch(`/api/${id}`, {
             method: 'PUT',
             credentials: 'include',
             headers: {
