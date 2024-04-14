@@ -1,29 +1,36 @@
 import styles from './NewNoteForm.module.css';
+import { createNote } from '../../utils/createNote.js';
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function NewNoteForm({ onSubmit }) {
+    const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
     const handleSubmit = event => {
         event.preventDefault();
 
-        onSubmit({title, content});
-
-        setTitle('');
-        setContent('');
-    }
+        createNote({ title, content })
+            .then(() => {
+                setTitle('');
+                setContent('');
+                navigate('/');
+            })
+            .catch(err => console.log('Error creating note!', err));
+    };
 
     return (
         <>
             <div className={styles.container}>
+                <Link className={styles.cancel} to="/">x</Link>
                 <h3>Write New Note: </h3>
-                <form onSubmit={handleSubmit}>
+                <form className={styles.newNoteForm} onSubmit={handleSubmit}>
                     <div className={styles.title}>
                         <label htmlFor="title">Title: </label>
-                        <input 
-                            type="text" 
-                            id="title" 
+                        <input
+                            type="text"
+                            id="title"
                             value={title}
                             onChange={e => setTitle(e.target.value)}
                             className={styles.title}
@@ -31,8 +38,8 @@ export default function NewNoteForm({ onSubmit }) {
                     </div>
                     <div className={styles.content}>
                         <label htmlFor="title">Content: </label>
-                        <textarea 
-                            id="title" 
+                        <textarea
+                            id="title"
                             value={content}
                             onChange={e => setContent(e.target.value)}
                             className={styles.content}

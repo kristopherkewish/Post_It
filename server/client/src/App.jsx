@@ -1,7 +1,7 @@
 import './App.css'
 import Header from './components/Header/Header.jsx';
 import PostItContainer from './components/PostItContainer/PostItContainer.jsx';
-import NewNoteForm from './components/NewNoteForm/NewNoteForm.jsx';
+import NewNoteButton from './components/NewNoteButton/NewNoteButton.jsx';
 import { fetchNotes } from './utils/fetchNotes.js';
 import { createNote } from './utils/createNote.js';
 import { deleteNote } from './utils/deleteNote.js';
@@ -30,14 +30,6 @@ function App() {
       }
     });
   },[])
-
-  const handleNewNoteSubmit = (newNote) => {
-    createNote(newNote)
-      .then(() => {
-        fetchNotes().then(data => setNotes(data));
-      })
-      .catch(err => console.log('Error creating note!', err));
-  };
 
   const handleNoteDelete = (noteId) => {
     deleteNote(noteId)
@@ -68,7 +60,7 @@ function App() {
         onEditClick={handleEditClick}
         onUpdateClick={handleNoteUpdate}
       />
-      <NewNoteForm onSubmit={handleNewNoteSubmit}/>
+      <NewNoteButton />
     </>
   )
 }

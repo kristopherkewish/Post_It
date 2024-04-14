@@ -1,0 +1,33 @@
+.newNoteButton {
+    border: none;
+    background-color: var(--yellow);
+    padding: 30px;
+    margin: 0;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 10px;
+    bottom: 30px;
+    box-shadow: -2px 3px 0px rgba(0, 0, 0, 1)
+}
+
+.newNoteButton:hover {
+    background-color: white;
+    color: var(--yellow);
+}
+
+.newNoteButton:active {
+    box-shadow: none;
+    right: 32px;
+    bottom: 27px;
+}
+  

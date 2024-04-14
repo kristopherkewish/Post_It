@@ -7,6 +7,7 @@ import {
 import App from './App.jsx'
 import Login from './Login.jsx'
 import SignUp from './SignUp.jsx'
+import NewNoteForm from './components/NewNoteForm/NewNoteForm.jsx'
 import './index.css'
 
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/signUp",
     element: <SignUp />,
+  },
+  {
+    path: "/new",
+    element: <NewNoteForm />
   }
 ]);
 
