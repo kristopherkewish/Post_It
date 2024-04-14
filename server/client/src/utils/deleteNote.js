@@ -1,6 +1,6 @@
 async function deleteNote(noteId) {
     try {
-        const response = await fetch(`/api/${noteId}`, {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + `/api/${noteId}`, {
             method: 'DELETE',
             credentials: 'include',
             headers: {

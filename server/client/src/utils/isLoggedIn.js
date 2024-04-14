@@ -1,6 +1,6 @@
 async function isLoggedIn() {
     try {
-        const response = await fetch('/auth/isLoggedIn', {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/auth/isLoggedIn', {
             credentials: 'include',
         });
 

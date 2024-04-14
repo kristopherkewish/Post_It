@@ -1,6 +1,6 @@
 async function login(username, password) {
     try {
-        const response = await fetch('/auth/login', {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/auth/login', {
             method: 'POST',
             credentials: 'include',
             headers: {

@@ -1,6 +1,6 @@
 async function signOut() {
     try {
-        const response = await fetch('/auth/logout', {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + '/auth/logout', {
             credentials: 'include',
             method: 'POST',
         });
